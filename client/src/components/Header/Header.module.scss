@@ -1,0 +1,22 @@
+.header {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+    margin-bottom: 50px;
+    align-items: center;
+
+    a {
+        text-decoration: none;
+        color: inherit;
+    }
+
+    &__logo {
+        font-weight: bold;
+        font-size: 1.4rem;
+    }
+
+    &__navbar {
+        display: flex;
+        gap: 15px;
+    }
+}
