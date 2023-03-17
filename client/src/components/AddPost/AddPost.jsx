@@ -31,57 +31,43 @@ const formats = [
     "image",
 ];
 
-const AddPost = () => {
-    const [title, setTitle] = useState("");
-    const [description, setDescription] = useState("");
-    const [content, setContent] = useState("");
-    // to have access to the file we need to create stata
-    const [files, setFiles] = useState("");
-
-    const handleNewPost = async (e) => {
-        e.preventDefault();
-
-        const data = new FormData();
-        data.set("title", title);
-        data.set("description", description);
-        data.set("content", content);
-        data.set("avatar", files[0]);
-
-        const response = await fetch("http://localhost:4000/post", {
-            method: "POST",
-            //because of file, it easier to send all this information not as json but as formdata
-            body: data,
-        });
-        console.log(await response.json());
-    };
-
+const AddPost = ({
+    title,
+    description,
+    content,
+    onSubmit,
+    onChangeTitle,
+    onChangeDescription,
+    onChangeFile,
+    onChangeContent,
+}) => {
     return (
         <form
             className={styles.form}
-            onSubmit={handleNewPost}
+            onSubmit={onSubmit}
         >
             <input
                 type="text"
                 placeholder={"Title"}
                 value={title}
-                onChange={(e) => setTitle(e.target.value)}
+                onChange={onChangeTitle}
                 required
             />
             <input
                 type="text"
                 placeholder={"Description"}
                 value={description}
-                onChange={(e) => setDescription(e.target.value)}
+                onChange={onChangeDescription}
                 required
             />
             <input
                 type="file"
-                onChange={(e) => setFiles(e.target.files)}
+                onChange={onChangeFile}
                 required
             />
             <ReactQuill
                 value={content}
-                onChange={(newValue) => setContent(newValue)}
+                onChange={onChangeContent}
                 modules={modules}
                 formats={formats}
                 required

@@ -3,6 +3,18 @@
     grid-template-columns: 0.9fr 1.1fr;
     gap: 20px;
     margin-bottom: 30px;
+    height: 200px;
+
+    &__img {
+        width: 100%;
+        height: 200px;
+
+        img {
+            object-fit: cover;
+            width: 100%;
+            height: 100%;
+        }
+    }
 
     &__content {
         h2 {
