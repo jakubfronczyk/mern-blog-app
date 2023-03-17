@@ -3,10 +3,14 @@ const express = require("express");
 const cors = require("cors");
 const { mongoose } = require("mongoose");
 const User = require("./models/User");
+const Post = require("./models/Post");
 const bcrypt = require("bcryptjs");
 const app = express();
 const jwt = require("jsonwebtoken");
 const cookieParser = require("cookie-parser");
+const multer = require("multer");
+const uploadMiddleware = multer({ dest: "uploads/" });
+const fs = require("fs");
 
 const salt = bcrypt.genSaltSync(10);
 const secret = "asdsdvfdkhgjASDvfdDf312CAS2G$$#wqd@";
@@ -45,7 +49,10 @@ app.post("/login", async (req, res) => {
         jwt.sign({ username, id: userDoc._id }, secret, {}, (err, token) => {
             if (err) throw err;
             //every time request send it as cookie
-            res.cookie("token", token).json("successful");
+            res.cookie("token", token).json({
+                id: userDoc._id,
+                username,
+            });
         });
     } else {
         //not logged in
@@ -65,6 +72,25 @@ app.get("/profile", (req, res) => {
 //logut user, reset cookie
 app.post("/logout", (req, res) => {
     res.cookie("token", "").json("ok");
+});
+
+//create post
+app.post("/post", uploadMiddleware.single("avatar"), async (req, res) => {
+    const { originalname, path } = req.file;
+    const parts = originalname.split(".");
+    const extension = parts[parts.length - 1];
+    const newPath = path + "." + extension;
+    fs.renameSync(path, newPath);
+
+    const { title, description, content } = req.body;
+    const postDoc = await Post.create({
+        title,
+        description,
+        content,
+        cover: newPath,
+    });
+
+    res.json(postDoc);
 });
 
 app.listen(4000);
