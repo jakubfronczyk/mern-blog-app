@@ -7,6 +7,8 @@ const PostSchema = new Schema(
         description: String,
         content: String,
         img: String,
+        //create author id reference to user
+        author: { type: Schema.Types.ObjectId, ref: "User" },
     },
     {
         //another param object with extra options
