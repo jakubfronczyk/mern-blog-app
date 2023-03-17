@@ -18,6 +18,7 @@ const secret = "asdsdvfdkhgjASDvfdDf312CAS2G$$#wqd@";
 app.use(cors({ credentials: true, origin: "http://localhost:5173" })); //if use credeintals you have to specifiy more info
 app.use(express.json());
 app.use(cookieParser());
+app.use("/uploads", express.static(__dirname + "/uploads"));
 
 //connect to db
 mongoose.connect(
@@ -75,22 +76,35 @@ app.post("/logout", (req, res) => {
 });
 
 //create post
-app.post("/post", uploadMiddleware.single("avatar"), async (req, res) => {
+app.post("/post", uploadMiddleware.single("img"), async (req, res) => {
     const { originalname, path } = req.file;
     const parts = originalname.split(".");
     const extension = parts[parts.length - 1];
     const newPath = path + "." + extension;
     fs.renameSync(path, newPath);
-
-    const { title, description, content } = req.body;
-    const postDoc = await Post.create({
-        title,
-        description,
-        content,
-        cover: newPath,
+    //to take author id
+    const { token } = req.cookies;
+    jwt.verify(token, secret, {}, async (err, info) => {
+        if (err) throw err;
+        const { title, description, content } = req.body;
+        const postDoc = await Post.create({
+            title,
+            description,
+            content,
+            img: newPath,
+            author: info.id,
+        });
+        res.json(postDoc);
     });
+});
 
-    res.json(postDoc);
+//get request on post
+app.get("/post", async (req, res) => {
+    const posts = await Post.find()
+        .populate("author", ["username"])
+        .sort({ createdAt: -1 })
+        .limit(20);
+    res.json(posts);
 });
 
 app.listen(4000);
