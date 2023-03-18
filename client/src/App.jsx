@@ -30,6 +30,14 @@ function App() {
                         path="/create"
                         element={<CreatePost />}
                     />
+                    <Route
+                        path="/post/:id"
+                        element={<PostPage />}
+                    />
+                    <Route
+                        path="/edit/:id"
+                        element={<EditPost />}
+                    />
                 </Route>
             </Routes>
         </UserContextProvider>
