@@ -40,6 +40,7 @@ const AddPost = ({
     onChangeDescription,
     onChangeFile,
     onChangeContent,
+    buttonName,
 }) => {
     return (
         <form
@@ -63,7 +64,6 @@ const AddPost = ({
             <input
                 type="file"
                 onChange={onChangeFile}
-                required
             />
             <ReactQuill
                 value={content}
@@ -72,7 +72,7 @@ const AddPost = ({
                 formats={formats}
                 required
             />
-            <button>Add post</button>
+            <button>{buttonName}</button>
         </form>
     );
 };

@@ -1,9 +1,23 @@
 .post {
     display: grid;
-    grid-template-columns: 0.9fr 1.1fr;
+    grid-template-columns: 0.7fr 1.3fr;
     gap: 20px;
-    margin-bottom: 30px;
-    height: 200px;
+    margin-bottom: 20px;
+    height: auto;
+
+    @media screen and (max-width: 89.75em) {
+    }
+
+    @media screen and (max-width: 56.25em) {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    @media screen and (max-width: 43.75em) {
+        grid-template-columns: 1fr;
+    }
+
+    @media screen and (max-width: 33.45em) {
+    }
 
     &__img {
         width: 100%;
@@ -11,12 +25,18 @@
 
         img {
             object-fit: cover;
+            object-position: center center;
             width: 100%;
             height: 100%;
         }
     }
 
     &__content {
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
         h2 {
             margin: 0;
             font-size: 1.8rem;
