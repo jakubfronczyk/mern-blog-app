@@ -1,5 +1,18 @@
 .layout {
     padding: 10px;
-    max-width: 800px;
+    max-width: 1000px;
     margin: 0 auto;
+
+    @media screen and (max-width: 89.75em) {
+    }
+
+    @media screen and (max-width: 56.25em) {
+        max-width: 600px;
+    }
+
+    @media screen and (max-width: 43.75em) {
+    }
+
+    @media screen and (max-width: 33.45em) {
+    }
 }

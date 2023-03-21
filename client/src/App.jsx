@@ -5,6 +5,8 @@ import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import CreatePost from "./pages/CreatePost";
+import PostPage from "./pages/PostPage";
+import EditPage from "./pages/EditPage";
 
 function App() {
     return (
@@ -30,13 +32,14 @@ function App() {
                         path="/create"
                         element={<CreatePost />}
                     />
+                    /*{" "}
                     <Route
                         path="/post/:id"
                         element={<PostPage />}
                     />
                     <Route
                         path="/edit/:id"
-                        element={<EditPost />}
+                        element={<EditPage />}
                     />
                 </Route>
             </Routes>
