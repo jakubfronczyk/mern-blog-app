@@ -64,10 +64,18 @@ app.post("/login", async (req, res) => {
 //veryfi user
 app.get("/profile", (req, res) => {
     const { token } = req.cookies;
-    jwt.verify(token, secret, {}, (err, info) => {
-        if (err) throw err;
-        res.json(info);
-    });
+    if (token) {
+        jwt.verify(token, secret, {}, (err, info) => {
+            if (err) {
+                console.error(err);
+                res.sendStatus(401);
+            } else {
+                res.json(info);
+            }
+        });
+    } else {
+        res.json({});
+    }
 });
 
 //logut user, reset cookie
@@ -116,7 +124,6 @@ app.put("/post", uploadMiddleware.single("file"), async (req, res) => {
         const postDoc = await Post.findById(id);
         const isAuthor =
             JSON.stringify(postDoc.author) === JSON.stringify(info.id);
-
         if (!isAuthor) {
             return res.status(400).json("you are not the author");
         }
@@ -124,7 +131,7 @@ app.put("/post", uploadMiddleware.single("file"), async (req, res) => {
             title,
             description,
             content,
-            img: newPath ? newPath : postDoc.cover,
+            cover: newPath ? newPath : postDoc.cover,
         });
 
         res.json(postDoc);
