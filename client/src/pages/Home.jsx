@@ -12,7 +12,17 @@ const Homepage = () => {
         });
     }, []);
 
-    return <>{posts.length > 0 && posts.map((post) => <Post {...post} />)}</>;
+    return (
+        <>
+            {posts.length > 0 &&
+                posts.map((post, idx) => (
+                    <Post
+                        key={idx}
+                        {...post}
+                    />
+                ))}
+        </>
+    );
 };
 
 export default Homepage;
