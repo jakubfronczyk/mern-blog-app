@@ -64,6 +64,7 @@ const AddPost = ({
             <input
                 type="file"
                 onChange={onChangeFile}
+                required
             />
             <ReactQuill
                 value={content}

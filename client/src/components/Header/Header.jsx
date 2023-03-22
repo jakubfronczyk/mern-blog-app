@@ -20,8 +20,18 @@ const Header = () => {
         fetch("http://localhost:4000/logout", {
             credentials: "include",
             method: "POST",
-        });
-        setUserInfo(null);
+        })
+            .then(() => {
+                // Remove the JWT token from local storage
+                localStorage.removeItem("jwt");
+                // Update the user info state to null
+                setUserInfo(null);
+                // Redirect the user to the main page or login page
+                window.location.reload();
+            })
+            .catch((error) => {
+                console.log(error);
+            });
     };
 
     const username = userInfo?.username;
@@ -32,19 +42,39 @@ const Header = () => {
                 to="/"
                 className={styles.header__logo}
             >
-                MyBlog
+                Dev Dairies
             </Link>
             <nav className={styles.header__navbar}>
                 {username && (
                     <>
-                        <Link to="/create">Create new post</Link>
-                        <a onClick={handleLogout}>Logout</a>
+                        <Link
+                            to="/create"
+                            className={styles.header__navbar__link}
+                        >
+                            Create Post
+                        </Link>
+                        <a
+                            onClick={handleLogout}
+                            className={styles.header__navbar__link}
+                        >
+                            Logout
+                        </a>
                     </>
                 )}
                 {!username && (
                     <>
-                        <Link to="/login">Login</Link>
-                        <Link to="/register">Register</Link>
+                        <Link
+                            to="/login"
+                            className={styles.header__navbar__link}
+                        >
+                            Login
+                        </Link>
+                        <Link
+                            to="/register"
+                            className={styles.header__navbar__link}
+                        >
+                            Register
+                        </Link>
                     </>
                 )}
             </nav>

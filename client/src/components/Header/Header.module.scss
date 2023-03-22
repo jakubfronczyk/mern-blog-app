@@ -1,8 +1,8 @@
 .header {
     display: flex;
     justify-content: space-between;
-    margin-top: 20px;
-    margin-bottom: 50px;
+    margin-top: 1rem;
+    margin-bottom: 2rem;
     align-items: center;
 
     a {
@@ -12,11 +12,26 @@
 
     &__logo {
         font-weight: bold;
-        font-size: 1.4rem;
+        font-size: 1.7rem;
     }
 
     &__navbar {
         display: flex;
-        gap: 15px;
+        gap: 1.2rem;
+        color: white;
+
+        &__link {
+            background-color: #2f58cd;
+            border-radius: 8px;
+            padding: 0.3rem 0.5rem;
+            font-size: 1.1rem;
+            box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+            transition: all 0.25s cubic-bezier(0.645, 0.045, 0.355, 1);
+            cursor: pointer;
+
+            &:hover {
+                transform: translateY(10%);
+            }
+        }
     }
 }

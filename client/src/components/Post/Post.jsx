@@ -27,15 +27,15 @@ const Post = ({
                     <h2>{title}</h2>
                 </Link>
                 <p className={styles.post__content__info}>
-                    <a className={styles.post__content__info__author}>
-                        {author.username}
-                    </a>
                     <time>
                         {format(
                             new Date(updatedAt ? updatedAt : createdAt),
-                            "MMM d, yyyy HH:mm"
+                            "MMM d, yyyy"
                         )}
                     </time>
+                    <a className={styles.post__content__info__author}>
+                        by @{author.username}
+                    </a>
                 </p>
                 <p className={styles.post__content__description}>
                     {description}
