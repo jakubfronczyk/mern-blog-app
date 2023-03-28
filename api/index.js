@@ -52,7 +52,7 @@ async function uploadToS3(path, originalFileName, mimetype) {
 }
 
 //this is async function so have to use async and await
-app.post("/register", async (req, res) => {
+app.post("/api/register", async (req, res) => {
     mongoose.connect(process.env.MONGO_URL);
     const { username, password } = req.body;
     try {
@@ -68,7 +68,7 @@ app.post("/register", async (req, res) => {
 });
 
 //login authentication
-app.post("/login", async (req, res) => {
+app.post("/api/login", async (req, res) => {
     mongoose.connect(process.env.MONGO_URL);
     const { username, password } = req.body;
     const userDoc = await User.findOne({ username });
@@ -90,7 +90,7 @@ app.post("/login", async (req, res) => {
 });
 
 //veryfi user
-app.get("/profile", (req, res) => {
+app.get("/api/profile", (req, res) => {
     mongoose.connect(process.env.MONGO_URL);
     const { token } = req.cookies;
     if (token) {
@@ -108,12 +108,12 @@ app.get("/profile", (req, res) => {
 });
 
 //logut user, reset cookie
-app.post("/logout", (req, res) => {
+app.post("/api/logout", (req, res) => {
     res.cookie("token", "").json(true);
 });
 
 //create post
-app.post("/post", uploadMiddleware.single("img"), async (req, res) => {
+app.post("/api/post", uploadMiddleware.single("img"), async (req, res) => {
     mongoose.connect(process.env.MONGO_URL);
     const { originalname, path, mimetype } = req.file;
     const url = await uploadToS3(path, originalname, mimetype);
@@ -134,7 +134,7 @@ app.post("/post", uploadMiddleware.single("img"), async (req, res) => {
 });
 
 //edit post
-app.put("/post", uploadMiddleware.single("file"), async (req, res) => {
+app.put("/api/post", uploadMiddleware.single("file"), async (req, res) => {
     mongoose.connect(process.env.MONGO_URL);
     let newPath = null;
     if (req.file) {
@@ -164,7 +164,7 @@ app.put("/post", uploadMiddleware.single("file"), async (req, res) => {
 });
 
 //get request on post
-app.get("/post", async (req, res) => {
+app.get("/api/post", async (req, res) => {
     mongoose.connect(process.env.MONGO_URL);
     const posts = await Post.find()
         .populate("author", ["username"])
@@ -174,7 +174,7 @@ app.get("/post", async (req, res) => {
 });
 
 //get single post
-app.get("/post/:id", async (req, res) => {
+app.get("/api/post/:id", async (req, res) => {
     mongoose.connect(process.env.MONGO_URL);
     const { id } = req.params;
     const postDoc = await Post.findById(id).populate("author", ["username"]);
