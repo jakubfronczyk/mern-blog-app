@@ -11,13 +11,15 @@ const EditPage = () => {
     const [redirect, setRedirect] = useState(false);
 
     useEffect(() => {
-        fetch("http://localhost:4000/post/" + id).then((response) => {
-            response.json().then((postInfo) => {
-                setTitle(postInfo.title);
-                setDescription(postInfo.description);
-                setContent(postInfo.content);
-            });
-        });
+        fetch(`${import.meta.env.VITE_API_BASE_URL}/post/` + id).then(
+            (response) => {
+                response.json().then((postInfo) => {
+                    setTitle(postInfo.title);
+                    setDescription(postInfo.description);
+                    setContent(postInfo.content);
+                });
+            }
+        );
     }, []);
 
     const handleUpdatePost = async (e) => {
@@ -31,11 +33,14 @@ const EditPage = () => {
         if (files?.[0]) {
             data.set("file", files?.[0]);
         }
-        const response = await fetch("http://localhost:4000/post", {
-            method: "PUT",
-            body: data,
-            credentials: "include",
-        });
+        const response = await fetch(
+            `${import.meta.env.VITE_API_BASE_URL}/post`,
+            {
+                method: "PUT",
+                body: data,
+                credentials: "include",
+            }
+        );
         if (response.ok) {
             setRedirect(true);
         }

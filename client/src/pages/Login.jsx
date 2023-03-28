@@ -11,13 +11,16 @@ const LoginPage = () => {
 
     const handleLogin = async (e) => {
         e.preventDefault();
-        const response = await fetch("http://localhost:4000/login", {
-            method: "POST",
-            body: JSON.stringify({ username, password }),
-            headers: { "Content-Type": "application/json" },
-            //save cookie inside react app
-            credentials: "include",
-        });
+        const response = await fetch(
+            `${import.meta.env.VITE_API_BASE_URL}/login`,
+            {
+                method: "POST",
+                body: JSON.stringify({ username, password }),
+                headers: { "Content-Type": "application/json" },
+                //save cookie inside react app
+                credentials: "include",
+            }
+        );
         if (response.ok) {
             response.json().then((userInfo) => {
                 setUserInfo(userInfo);

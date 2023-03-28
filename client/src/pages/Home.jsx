@@ -5,7 +5,7 @@ const Homepage = () => {
     const [posts, setPosts] = useState([]);
 
     useEffect(() => {
-        fetch("http://localhost:4000/post").then((response) => {
+        fetch(`${import.meta.env.VITE_API_BASE_URL}/post`).then((response) => {
             response.json().then((posts) => {
                 setPosts(posts);
             });

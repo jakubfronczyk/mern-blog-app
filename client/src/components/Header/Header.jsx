@@ -7,7 +7,7 @@ const Header = () => {
     const { userInfo, setUserInfo } = useContext(UserContext);
 
     useEffect(() => {
-        fetch(import.meta.env.VITE_API_BASE_URL, {
+        fetch(`${import.meta.env.VITE_API_BASE_URL}/post`, {
             credentials: "include",
         }).then((response) => {
             response.json().then((userInfo) => {
@@ -17,7 +17,7 @@ const Header = () => {
     }, []);
 
     const handleLogout = () => {
-        fetch("http://localhost:4000/logout", {
+        fetch(`${import.meta.env.VITE_API_BASE_URL}/logout`, {
             credentials: "include",
             method: "POST",
         })
@@ -35,7 +35,7 @@ const Header = () => {
     };
 
     const username = userInfo?.username;
-
+    console.log(import.meta.env.VITE_API_BASE_URL);
     return (
         <header className={styles.header}>
             <Link

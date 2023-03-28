@@ -19,12 +19,15 @@ const CreatePost = () => {
         data.set("content", content);
         data.set("img", files[0]);
 
-        const response = await fetch("http://localhost:4000/post", {
-            method: "POST",
-            //because of file, it easier to send all this information not as json but as formdata
-            body: data,
-            credentials: "include",
-        });
+        const response = await fetch(
+            `${import.meta.env.VITE_API_BASE_URL}/post`,
+            {
+                method: "POST",
+                //because of file, it easier to send all this information not as json but as formdata
+                body: data,
+                credentials: "include",
+            }
+        );
         if (response.ok) {
             setRedirect(true);
         }
