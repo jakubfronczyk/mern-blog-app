@@ -1,5 +1,5 @@
 # Dev Dairies
-
+[Check out live demo](https://mern-blog-app-blue.vercel.app/)
 ## General info
 
 MERN Blog App is a full-stack web application built with MERN stack (MongoDB, Express.js, React.js, and Node.js) that allows users to create, read, update, and delete blog posts. The app uses JSON Web Tokens (JWTs) for authentication and authorization.
