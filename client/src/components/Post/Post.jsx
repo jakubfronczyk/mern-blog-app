@@ -17,7 +17,7 @@ const Post = ({
             <div className={styles.post__img}>
                 <Link to={`/post/${_id}`}>
                     <img
-                        src={"http://localhost:4000/" + img}
+                        src={img}
                         alt=""
                     />
                 </Link>

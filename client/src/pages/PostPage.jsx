@@ -56,7 +56,7 @@ const PostPage = () => {
             </div>
             <div className={styles.post__img}>
                 <img
-                    src={`http://localhost:4000/${postInfo.img}`}
+                    src={postInfo.img}
                     alt=""
                 />
             </div>
